@@ -9,6 +9,6 @@
 * move block
 * delete block
 
-# block menu
+# block builder
 * name
 * run block
