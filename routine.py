@@ -53,6 +53,11 @@ class Routine:
 
     def __str__(self) -> str:
         out = f'{self.name}:\n'
+
+        return out
+
+    def fullPrint(self) -> str:
+        out = f'{self.name}:\n'
         for block in self.blocks:
             out += f'{block}\n'
 

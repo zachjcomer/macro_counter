@@ -1,14 +1,26 @@
-# routines
-* run routine
-* create routine
-* archive routine
+# workouts (main)
+routines
 
-# routine menu
-* name
-* add block
-* move block
-* delete block
++ chooseRoutine(int) -> routine
++ runRoutine(routine)
 
-# block builder
-* name
-* run block
+# routine
+name
+blocks
+
++ setName(string)
++ getName() -> string
+
++ run()
++ addBlock() -> self
++ delBlock() -> self
++ moveBlock() -> self
+
+# block (Builder)
+timer
+action
+
++ run()
+
++ setTimer(timer)
++ setAction(action)

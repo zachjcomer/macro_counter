@@ -1,6 +1,9 @@
 def new(**blockConfig):
     return Block(**blockConfig)
 
+"""
+Block: a composite class consisting of an Action class and a Timer class.
+"""
 class Block:
     def __init__(self, **blockConfig):
         for option, value in blockConfig.items():
