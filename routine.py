@@ -1,25 +1,31 @@
+import tools
 import block
 
-def new():
-    return Routine()
+"""
+Routine
+Container for blocks.
+"""
+
+def new(i):
+    return Routine(i)
+
 
 class Routine:
-    def __init__(self):
-        self.name = 'Routine'
+    # routine aggregates block objects
+    def __init__(self, i):
+        self.name = f'Routine {i}'
         self.blocks = [ ]
 
+    # returns routine name
     def getName(self) -> str:
-        # returns str self.name
         return self.name
 
-    def setName(self, newName):
-        # attempts to replace self.name with newName.
-        # returns self for method chaining.
-        if isinstance(newName, str):
-            # print(f'Naming {self.name} to {newName}.')
-            self.name = newName
-        else:
-            print(f'Error: Routine#setName requires str but {type(newName).__name__} was supplied.')
+    # prompts for a new name
+    def setName(self, argName):
+        if not argName:
+            argName = tools.safeInput(f'Enter a new name for {self.name}.', [], str)
+        self.name = argName
+
         return self
 
     # what would need a block outside of a routine? a routine is just a block container -- copying routines maybe?
@@ -27,16 +33,17 @@ class Routine:
         if i < len(self.blocks):
             return self.blocks[i]
 
-    def addBlock(self, **blockConfig):
+    # add -> create enforces that an object is being created
+    # creates a block object with the given blockConfig and adds it to self.blocks
+    def createBlock(self, **blockConfig):
         self.blocks.append(block.new(**blockConfig))
         return self
 
-    def delBlock(self, i) -> bool:
-        if i < len(self.blocks):
+    # removes the block from self.blocks if valid
+    def deleteBlock(self) -> bool:
+        i = tools.safeInputRange(f'Select a block to delete from {self.name}', self.list(), int, 0, len(self.blocks))
+        if tools.safeInputSwitch(f'Are you sure you want to delete {self.blocks[i]}?', ['y/n'], ['y', 'n']) == 'y':
             self.blocks.pop(i)
-            return True
-        else:
-            return False
 
     def moveBlock(self, i, j) -> bool:
         # swaps blocks at index i,j if possible
@@ -52,13 +59,20 @@ class Routine:
             block.run()
 
     def __str__(self) -> str:
-        out = f'{self.name}:\n'
+        out = f'{self.name}'
 
         return out
 
-    def fullPrint(self) -> str:
+    def _list(self) -> str:
         out = f'{self.name}:\n'
         for block in self.blocks:
             out += f'{block}\n'
 
+        return out
+
+    def list(self) -> str:
+        out = []
+
+        for block in self.blocks:
+            out.append(str(block))
         return out

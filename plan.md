@@ -1,8 +1,10 @@
-# workouts (main)
+# manager
 routines
 
-+ chooseRoutine(int) -> routine
-+ runRoutine(routine)
++ createRoutine()
++ deleteRoutine()
++ moveRoutine(i, j)
++ runRoutine(i)
 
 # routine
 name
