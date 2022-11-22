@@ -1,37 +1,49 @@
+import tools
+
+"""
+Block: a composite class consisting of an Action class and a Clock class.
+"""
+
 def new(**blockConfig):
     return Block(**blockConfig)
 
-"""
-Block: a composite class consisting of an Action class and a Timer class.
-"""
 class Block:
     def __init__(self, **blockConfig):
         for option, value in blockConfig.items():
-            if isinstance(option, str) and option.lower().strip() == "name":
-                if isinstance(value, str):
-                    self.name = f'{value}'
-            if isinstance(option, str) and option.lower().strip() == "sets":
-                if isinstance(value, int):
-                    self.sets = value
-            if isinstance(option, str) and option.lower().strip() == "reps":
-                if isinstance(value, int):
-                    self.reps = value
+            if option.lower().strip() == "name":
+                self.name = f'{value}'
 
+    # executes the block's activity and timer
+    def run(self):
+        print(f'Do block {self.getName()}')
+        if not self.clock == None:
+            self.clock.start()
+        input()
 
-    def getName(self):
+    # returns block name
+    def getName(self) -> str:
         return self.name
 
-    def setName(self, newName):
-        if (isinstance(newName, str)):
-            # print(f'Naming block {self.name} to {newName}')
-            self.name = newName
-        else:
-            print(f'Error: Block#setName requires str but {type(newName).__name__} was supplied.')
-        return self
+    # sets block name
+    def setName(self):
+        name = tools.safeInput(f'Enter new name for {self.getName()}:', [], str)
+        self.name = name
 
+    # pretty print the block's components
+    def display(self) -> None:
+        print(f'{self.getName()}')
+
+    # returns the block's name
     def __str__(self) -> str:
-        return f'{self.name}: {self.sets} x {self.reps}'
+        return self.getName()
 
-    def run(self):
-        print(f'Do block {self.name}')
-        input()
+    """UNSAFE METHODS BELOW THIS LINE -- USE WITH CAUTION -- DONT PERFORM INPUT VALIDATION OR RANGE CHECKING"""
+    def _addClock(self, clock):
+        self.clock = clock
+
+    def _deleteClock(self):
+        self.clock = None
+
+    def _setName(self, name) -> str:
+        self.name = name
+        return self
