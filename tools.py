@@ -1,39 +1,68 @@
+"""
+tools
+"""
+
+# TODO: how to return/pack dictionary into **kwargs?
+#  unpacks tuples for kwargs input
+# (str key, type)
+# (str key, type, min, max)
+def safe_input_kwargs(prompt, scheme) -> tuple:
+    print(prompt)
+
+# forces user to input one of the given switch cases
+def safe_input_switch(prompt, options, matches):
+    print(prompt)
+    print_options(options)
+
+    return safe_input_match(prompt, matches)
+
+# forces user to input something castable to 'type' within range [first, last)
+def safe_input_range(prompt, options, type, first, last):
+    print_enumerated_options(options)
+
+    i = safe_input(prompt, type)
+    while i < first or i >= last:
+        print(f'{i} is out of range.')
+        i = safe_input_type(prompt, type)
+
+    return i
+
 # forces user to input something castable to 'type'
 def safe_input(prompt, options, type) -> type:
-    print(f'{prompt}')
+    print(prompt)
+    print_enumerated_options(options)
+
+    return safe_input_type(prompt, type)
+
+# input checking from a list of possible matches
+def safe_input_match(prompt, matches):
+    user_input = input()
+    for match in matches:
+        if user_input.lower().strip() == match:
+            return match
+
+    print(f'{user_input} is not a valid choice.')
+    return safe_input_switch(prompt, matches)
+        
+
+# simple type checking of an input with reprompting upon exceptions
+def safe_input_type(prompt, type) -> type:
+    user_input = input()
+    try:
+        valid_input = type(user_input)
+        return valid_input
+    except (ValueError, TypeError):
+        print(f'{user_input} is not a valid choice for type {type}.')
+        print(prompt)
+        return safe_input_type(type)
+
+# display enumerated options from a lists
+def print_enumerated_options(options) -> None:
     if options:
         for i, option in enumerate(options):
             print(f'{i}. {option}')
 
-    userInput = input()
-
-    try:
-        x = type(userInput)
-        return x
-    except (ValueError, TypeError):
-        print(f'{userInput} is not a valid choice for type {type}.')
-        return safe_input(prompt, options, type)
-
-# forces user to input one of the given switch cases
-def safe_input_switch(prompt, options, cases):
-    print(f'{prompt}')
-    for option in options:
-        print(option)
-
-    userInput = input()
-
-    for case in cases:
-        if userInput.lower().strip() == case:
-            return case
-
-    print(f'{userInput} is not a valid choice.')
-    return safe_input_switch(prompt, options, cases)
-
-# forces user to input something castable to 'type' within range [first, last)
-# HOW WILL THIS HANDLE NON-NUMERIC OBJECTS?
-def safe_input_range(prompt, options, type, first, last):
-    i = safe_input(prompt, options, type)
-    while i < first or i >= last:
-        print(f'{i} is out of range.')
-        i = safe_input(prompt, options, type)
-    return i
+def print_options(options) -> None:
+    if options:
+        for option in options:
+            print(option)

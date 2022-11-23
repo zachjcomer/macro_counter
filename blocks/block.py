@@ -7,30 +7,40 @@ COMPOSITE Block
 Implementations I can think of rn: lifting -- (set/rep/weight, cooldown timer), calesthenics -- (set/rep, cooldown), HIIT training -- (interval timer), cardio -- (stopwatch/timer)
 """
 
-def new(**blockConfig):
-    return Block(**blockConfig)
+def new():
+    return Block()
 
 class Block:
-    def __init__(self, **blockConfig):
-        for option, value in blockConfig.items():
-            if option.lower().strip() == "name":
-                self.name = f'{value}'
+    def __init__(self):
+        self.name = 'block'
         self.clock = None
+        self.action = None
 
     # executes the block's activity and timer
     def run(self):
-        print(f'Do block {self.get_name()}')
         if not self.clock == None:
             self.clock.start()
-        input()
+        if not self.action == None:
+            self.action.start()
+
+    def add_clock(self, clock):
+        self.clock = clock
+
+    def delete_clock(self):
+        self.clock = None
+
+    def add_action(self, action):
+        self.action = action
+
+    def delete_action(self):
+        self.action = None
 
     # returns block name
     def get_name(self) -> str:
         return self.name
 
     # sets block name
-    def set_name(self):
-        name = tools.safeInput(f'Enter new name for {self.get_name()}:', [], str)
+    def set_name(self, name):
         self.name = name
 
     # pretty print the block's components
@@ -42,12 +52,6 @@ class Block:
         return self.get_name()
 
     """UNSAFE METHODS BELOW THIS LINE -- USE WITH CAUTION -- DONT PERFORM INPUT VALIDATION OR RANGE CHECKING"""
-    def _add_clock(self, clock):
-        self.clock = clock
-
-    def _delete_clock(self):
-        self.clock = None
-
-    def _set_name(self, name) -> str:
+    def set_name_safe(self, name) -> str:
+        name = tools.safeInput(f'Enter new name for {self.get_name()}:', [], str)
         self.name = name
-        return self

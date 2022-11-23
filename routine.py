@@ -1,5 +1,5 @@
 import tools
-import block
+import blocks.block as block
 
 """
 Routine
@@ -39,18 +39,18 @@ class Routine:
 
     # add -> create enforces that an object is being created
     # creates a block object with the given blockConfig and adds it to self.blocks
-    def createBlock(self, **blockConfig):
-        self.blocks.append(block.new(**blockConfig))
+    def create_block(self, block):
+        self.blocks.append(block)
         return self
 
     # removes the block from self.blocks if valid
-    def deleteBlock(self):
+    def delete_block(self):
         i = self._select_block(f'Select a block to delete from {self.get_name()}')
         if tools.safeInputSwitch(f'Are you sure you want to delete {self.blocks[i]}?', ['y/n'], ['y', 'n']) == 'y':
             self.blocks.pop(i)
 
     # swaps blocks at index i,j if possible
-    def moveBlock(self):
+    def move_block(self):
         i = self._select_block(f'Select the first block to swap from {self.get_name()}')
         j = self._select_block(f'Select the second block to swap from {self.get_name()}')
         self.blocks[i], self.blocks[j] = self.blocks[j], self.blocks[i]

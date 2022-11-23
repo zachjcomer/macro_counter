@@ -1,6 +1,5 @@
 import manager
-import clock
-import routine
+import blocks.blockBuilder as blockBuilder
 
 
 def main():
@@ -11,11 +10,8 @@ def main():
     # manager.editRoutine(i) returns the given routine object -- IS THIS OKAY? HOW TO MODIFY ROUTINES IF NOT?
     r = m._get_routine(0)
     # routine modification through method chaining
-    r.set_name('Push I')._create_block(name = 'Overhead Press')._create_block(name = 'Test')
-    b = r._get_block(0)
-    b._add_clock(clock.Clock())
-    b = r._get_block(1)
-    b._add_clock(clock.Clock())
+    r.set_name('Push I').create_block(blockBuilder.new().add_clock(start = 0, end = 15).add_block(weight = 185, sets = 4, reps = 8).build())
+
     #r.display()
     r.run()
 

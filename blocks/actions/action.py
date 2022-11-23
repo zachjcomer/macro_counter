@@ -9,16 +9,15 @@ Implementations I can think of rn: lifting -- sets/reps/weights, bodyweight (cal
 # TODO: scheme and data should be coupled?
 
 class Action:
-    def __init__(self):
-        self.name = ''
+    def __init__(self, **action_config):
         self.data = list() # LIST OF TUPLES OF FLOATS?
         self.scheme = tuple() # TUPLE OF STRINGS?
 
     def request_input(self):
         i = tools.safeInput(f'Enter data for {self.get_name()}:', self.scheme[0], int)
 
-    def get_name(self):
-        return self.name
+    def __str__(self):
+        return f'{self.data}'
 
     """UNSAFE METHODS BELOW THIS LINE -- USE WITH CAUTION -- DONT PERFORM INPUT VALIDATION OR RANGE CHECKING"""
     def _get_data(self, i) -> tuple:
@@ -35,6 +34,3 @@ class Action:
     
     def _get_scheme(self) -> list:
         return list(self.scheme)
-
-    def _set_name(self, name):
-        self.name = name
