@@ -2,19 +2,22 @@ import tools
 import time
 
 """
-ABSTRACT Clock
+INTERFACE Clock
 
-Implementations I can think of rn: stopwatch (count up), timer (count down), pacer (HIIT, lift timing, eg fast phase slow phase)
+start() the timer's functionality.
+pause() the timer in its current state.
+end() the timer's functionality.
+reset() the timer to its original state.
+
+Implementations I can think of rn: stopwatch (count up), timer (count down, cooldown), pacer (HIIT, lift timing, eg fast phase slow phase)
 """
 class Clock:
     def __init__(self):
         self.time = 0
-        return
 
     # start the timer's recording
     def start(self):
         print(time.time())
-        return
 
     # pause the timer's recording
     def pause(self):
