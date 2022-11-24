@@ -20,20 +20,8 @@ class Block:
     def run(self):
         if not self.clock == None:
             self.clock.start()
-        if not self.action == None:
-            self.action.start()
-
-    def add_clock(self, clock):
-        self.clock = clock
-
-    def delete_clock(self):
-        self.clock = None
-
-    def add_action(self, action):
-        self.action = action
-
-    def delete_action(self):
-        self.action = None
+        """ if not self.action == None:
+            self.action.start() """
 
     # returns block name
     def get_name(self) -> str:
@@ -41,6 +29,10 @@ class Block:
 
     # sets block name
     def set_name(self, name):
+        self.name = name
+
+    def set_name_safe(self, name) -> str:
+        name = tools.safeInput(f'Enter new name for {self.get_name()}:', [], str)
         self.name = name
 
     # pretty print the block's components
@@ -52,6 +44,3 @@ class Block:
         return self.get_name()
 
     """UNSAFE METHODS BELOW THIS LINE -- USE WITH CAUTION -- DONT PERFORM INPUT VALIDATION OR RANGE CHECKING"""
-    def set_name_safe(self, name) -> str:
-        name = tools.safeInput(f'Enter new name for {self.get_name()}:', [], str)
-        self.name = name

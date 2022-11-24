@@ -1,6 +1,3 @@
-import tools
-import time
-
 """
 INTERFACE Clock
 
@@ -13,17 +10,23 @@ Implementations I can think of rn: stopwatch (count up), timer (count down, cool
 """
 class Clock:
     def __init__(self, **clock_config):
-        self.start_time = clock_config.get('start_time', 0)
+        self.is_active = False
 
     # start the timer's recording
     def start(self):
-        print(time.time())
+        self.is_active = True
 
     # pause the timer's recording
     def pause(self):
+        self.is_active = False
         return
 
-    # finish the timer's recording, save the data
+    # called every tick by block.run(), put any time-updating logic here.
+    def tick(self):
+        if self.is_active:
+            return
+
+    # should be called when the timer successfully reaches its end condition
     def end(self):
         return
 
