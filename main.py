@@ -10,7 +10,7 @@ def main():
     # manager.editRoutine(i) returns the given routine object -- IS THIS OKAY? HOW TO MODIFY ROUTINES IF NOT?
     r = m._get_routine(0)
     # routine modification through method chaining
-    r.set_name('Push I').create_block(blockBuilder.new().add_clock(start = 0, end = 15).add_action(weight = 185, sets = 4, reps = 8).build())
+    r.set_name('Push I').create_block(blockBuilder.new().set_timer(end_time = 5).set_weight_lifting(weight = 185, sets = 4, reps = 8).build())
 
     #r.display()
     r.run()

@@ -1,4 +1,5 @@
 import tools
+from time import sleep
 
 """
 COMPOSITE Block
@@ -18,10 +19,17 @@ class Block:
 
     # executes the block's activity and timer
     def run(self):
-        if not self.clock == None:
-            self.clock.start()
-        """ if not self.action == None:
-            self.action.start() """
+        self.clock.start()
+        while (self.clock.get_active()):
+            sleep(1.0)
+            self.clock.tick()
+
+    # set the clock
+    def _set_clock(self, clock):
+        self.clock = clock
+
+    def _set_action(self, action):
+        self.action = action
 
     # returns block name
     def get_name(self) -> str:

@@ -15,10 +15,12 @@ class Timer(clock.Clock):
         self.end_time = clock_config.get('end_time')
     
     def tick(self):
-        self.elapsed_time += 1
-        if (self.elapsed_time >= self.end_time):
-            self.end()
+        if self.is_active:
+            self.elapsed_time += 1
+            print(f'timer: {self.end_time - self.elapsed_time}')
+            if (self.elapsed_time >= self.end_time):
+                self.set_active(False)
+                self.end()
 
     def end(self):
-        self.is_active = False
         print("The end!")

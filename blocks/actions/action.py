@@ -16,9 +16,6 @@ class Action:
     def request_input(self):
         i = tools.safeInput(f'Enter data for {self.get_name()}:', self.scheme[0], int)
 
-    def __str__(self):
-        return f'{self.data}'
-
     """UNSAFE METHODS BELOW THIS LINE -- USE WITH CAUTION -- DONT PERFORM INPUT VALIDATION OR RANGE CHECKING"""
     def _get_data(self, i) -> tuple:
         return self.data[i]

@@ -25,14 +25,22 @@ class Clock:
     def tick(self):
         if self.is_active:
             return
+        return
 
     # should be called when the timer successfully reaches its end condition
     def end(self):
+        self.is_active = False
         return
 
     # reset the timer to its initial configuration
     def reset(self):
         return
 
+    def get_active(self) -> bool:
+        return self.is_active
+
+    def set_active(self, b) -> bool:
+        self.is_active = b
+
     def __str__(self):
-        return f'{self.start_time}'
+        return f'clock active: {self.is_active}'
