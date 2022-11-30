@@ -36,6 +36,7 @@ class BlockBuilder():
     # resets the action to be a dummy action
     def reset_action(self):
         self.new_block._set_action(action.Action())
+        return self
 
     # resets the block to have a dummy clock and action
     def reset(self):

@@ -19,15 +19,20 @@ class Block:
 
     # executes the block's activity and timer
     def run(self):
-        self.clock.start()
-        while (self.clock.get_active()):
-            sleep(1.0)
-            self.clock.tick()
+        self.action.start()
+
+        while (self.action.is_active()):
+            self.clock.start()
+            while (self.clock.is_active()):
+                sleep(1.0)
+                self.clock.tick()
+            self.action.end_cycle()
 
     # set the clock
     def _set_clock(self, clock):
         self.clock = clock
 
+    # set the action
     def _set_action(self, action):
         self.action = action
 
@@ -50,5 +55,3 @@ class Block:
     # returns the block's name
     def __str__(self) -> str:
         return self.get_name()
-
-    """UNSAFE METHODS BELOW THIS LINE -- USE WITH CAUTION -- DONT PERFORM INPUT VALIDATION OR RANGE CHECKING"""

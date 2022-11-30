@@ -2,13 +2,6 @@
 tools
 """
 
-# TODO: how to return/pack dictionary into **kwargs?
-#  unpacks tuples for kwargs input
-# (str key, type)
-# (str key, type, min, max)
-def safe_input_kwargs(prompt, scheme) -> tuple:
-    print(prompt)
-
 # forces user to input one of the given switch cases
 def safe_input_switch(prompt, options, matches):
     print(prompt)

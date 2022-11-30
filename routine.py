@@ -1,5 +1,4 @@
 import tools
-import blocks.block as block
 
 """
 Routine
@@ -37,7 +36,6 @@ class Routine:
         i = self._select_block(f'Select a block to modify from {self.get_name()}')
         return self.blocks[i]
 
-    # add -> create enforces that an object is being created
     # creates a block object with the given blockConfig and adds it to self.blocks
     def create_block(self, block):
         self.blocks.append(block)
@@ -75,21 +73,3 @@ class Routine:
     # returns the routine's name
     def __str__(self) -> str:
         return self.get_name()
-
-    """UNSAFE METHODS BELOW THIS LINE -- USE WITH CAUTION -- DONT PERFORM INPUT VALIDATION OR RANGE CHECKING"""
-    def _get_block(self, i):
-        if i < len(self.blocks):
-            return self.blocks[i]
-
-    def _create_block(self, **blockConfig):
-        self.blocks.append(block.new(**blockConfig))
-        return self
-
-    def _delete_block(self, i):
-        self.blocks.pop(i)
-        return self
-
-    def _move_block(self, i, j):
-        if i < len(self.blocks) and j < len(self.blocks):
-            self.blocks[i], self.blocks[j] = self.blocks[j], self.blocks[i]
-        return self
