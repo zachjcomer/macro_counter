@@ -13,7 +13,7 @@ def safe_input_switch(prompt, options, matches):
 def safe_input_range(prompt, options, type, first, last):
     print_enumerated_options(options)
 
-    i = safe_input(prompt, type)
+    i = safe_input_type(prompt, type)
     while i < first or i >= last:
         print(f'{i} is out of range.')
         i = safe_input_type(prompt, type)
