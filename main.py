@@ -5,11 +5,12 @@ import blocks.blockBuilder as blockBuilder
 def main():
     # instantiate the manager -- SHOULD BE A SINGLETON
     m = manager.new()
-
-    opt = tools.safe_input_range('Pick an option', ['Create a routine.'], int, 0, 1)
+    m.create_routine()
+    # opt = tools.safe_input_range('Pick an option', ['Create a routine.'], int, 0, 1)
+    m.prompt()
 
     """ # create two routines
-    m.create_routine()
+    
     # manager.editRoutine(i) returns the given routine object -- IS THIS OKAY? HOW TO MODIFY ROUTINES IF NOT?
     r = m._get_routine(0)
     # routine modification through method chaining

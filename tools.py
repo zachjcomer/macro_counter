@@ -11,12 +11,13 @@ def safe_input_switch(prompt, options, matches):
 
 # forces user to input something castable to 'type' within range [first, last)
 def safe_input_range(prompt, options, type, first, last):
+    print(prompt)
     print_enumerated_options(options)
 
     i = safe_input_type(prompt, type)
     while i < first or i >= last:
         print(f'{i} is out of range.')
-        i = safe_input_type(prompt, type)
+        i = safe_input_range(prompt, options, type, first, last)
 
     return i
 
@@ -47,13 +48,13 @@ def safe_input_type(prompt, type) -> type:
     except (ValueError, TypeError):
         print(f'{user_input} is not a valid choice for type {type}.')
         print(prompt)
-        return safe_input_type(type)
+        return safe_input_type(prompt, type)
 
 # display enumerated options from a lists
 def print_enumerated_options(options) -> None:
     if options:
         for i, option in enumerate(options):
-            print(f'{i}. {option}')
+            print(f'{i + 1}. {option}')
 
 def print_options(options) -> None:
     if options:

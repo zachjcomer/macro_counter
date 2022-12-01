@@ -8,6 +8,43 @@ Container for routines.
 
 # TODO: not very singleton-y
 
+"""
+Example of input prompt:
+
+Select a routine:
+1. {routine[0]}
+2. {routine[1]}
+3. Create new routine
+
+{routine} options:
+1. Run
+2. Edit
+3. Delete
+4. Back
+
+Choose a block to edit:
+1. {block[0]}
+2. {block[1]}
+3. Back
+
+{block[i]} options:
+1. Rename {block[i]}
+2. Edit Action
+3. Edit Clock
+4. Back
+
+{action} options:
+1. Change params
+2. Change action
+3. Back
+
+{clock} options:
+1. Change params
+2. Change action
+3. Back
+
+"""
+
 def new():
     return Manager()
 
@@ -17,30 +54,41 @@ class Manager:
     def __init__(self):
         self.routines = list()
 
+    def prompt(self):
+        options = self.list()
+        options.append('Create new routine')
+
+        user_input = tools.safe_input_range('Select a routine:', options, int, 1, len(options) + 1) - 1
+
+        if len(self.routines) > 0:
+            if user_input < len(self.routines):
+                self.get_routine(user_input).prompt()
+            else:
+                self.create_routine().prompt()
+        else:
+            self.create_routine().prompt()
+
     # creates a new routine and returns it for routine builder
-    def run_routine(self):
-        i = self._select_routine('Select a routine to run.')        
+    def run_routine(self, i):    
         self.routines[i].run()
 
     # create a new routine with a default name
     def create_routine(self):
         r = routine.new(len(self.routines))
         self.routines.append(r)
+        return r
 
     # TODO
-    def edit_routine(self):
-        i = self._select_routine('Select a routine to edit.')
+    def get_routine(self, i):
         return self.routines[i]
 
     # delete a routine
-    def delete_routine(self):
-        i = self._select_routine('Select a routine to delete.')
-        if tools.safe_input_switch(f'Are you sure you want to delete {self.routines[i]}?', ['y/n'], ['y', 'n']) == 'y':
-            self.routines.pop(i)
+    def delete_routine(self, i):
+        self.routines.pop(i)    
 
     # get safe input for selecting a routine
     def _select_routine(self, prompt):
-        return tools.safe_input_range(prompt, self.list(), int, 0, len(self.routines))
+        return tools.safe_input_range(prompt, self.list(), int, 1, len(self.routines) + 1) - 1
 
     # return a list of the routines
     def list(self) -> str:
@@ -54,8 +102,3 @@ class Manager:
         print('Routines:')
         for i, r in enumerate(self.routines):
             print(f'{i}. {r}')
-
-    """UNSAFE METHODS BELOW THIS LINE -- USE WITH CAUTION -- DONT PERFORM INPUT VALIDATION OR RANGE CHECKING"""
-    # bad?, need to find a way to edit/build routines through manager or in a more "managed" way
-    def _get_routine(self, i):
-        return self.routines[i]

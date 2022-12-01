@@ -14,6 +14,22 @@ class Routine:
         self.name = f'Routine {i}'
         self.blocks = list()
 
+    def prompt(self):
+        options = ['Run', 'Edit', 'Delete', 'Go back']
+
+        user_input = tools.safe_input_range(f'{self} options:', options, int, 1, 5)
+
+        match user_input:
+            case 1:
+                self.run()
+            case 2:
+                print(f'edit {self}')
+            case 3:
+                print(f'delete {self}')
+            case 4:
+                return
+
+
     # executes the routine's blocks in order of list appearance
     def run(self):
         print(f'Running {self.get_name()}...')
