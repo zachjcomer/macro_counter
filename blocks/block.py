@@ -28,9 +28,15 @@ class Block:
                 self.clock.tick()
             self.action.end_cycle()
 
+    def _get_clock(self):
+        return self.clock
+
     # set the clock
     def _set_clock(self, clock):
         self.clock = clock
+
+    def _get_action(self):
+        return self.action
 
     # set the action
     def _set_action(self, action):

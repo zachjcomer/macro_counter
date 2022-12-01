@@ -24,4 +24,7 @@ class Action:
 
     def is_active(self):
         return self.active
+
+    def __str__(self):
+        return 'action_generic'
     

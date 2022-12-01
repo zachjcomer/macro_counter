@@ -1,4 +1,5 @@
 import tools
+import blocks.blockBuilder as blockBuilder
 
 """
 Routine
@@ -17,22 +18,33 @@ class Routine:
     def prompt(self):
         options = ['Run', 'Edit', 'Delete', 'Go back']
 
-        user_input = tools.safe_input_range(f'{self} options:', options, int, 1, 5)
+        user_input = tools.safe_input_range(f'\n{self} options:', options, int, 1, 5)
 
         match user_input:
             case 1:
                 self.run()
             case 2:
-                print(f'edit {self}')
+                self.editor()
             case 3:
-                print(f'delete {self}')
+                print(f'delete {self} [WIP]')
             case 4:
-                return
+                return # if chosen, returns to manager object, won't run self.prompt() again
+
+        self.prompt()
+
+    def editor(self):
+        options = ['Create new block']
+        options = self.list() + options
+        
+        user_input = tools.safe_input_range(f'\n{self} editor:', options, int, 1, len(options) + 1)
+
+        if user_input == len(options):
+            self.create_block(blockBuilder.new().prompt().build())
 
 
     # executes the routine's blocks in order of list appearance
     def run(self):
-        print(f'Running {self.get_name()}...')
+        print(f'\nRunning {self.get_name()}.')
         for block in self.blocks:
             block.run()
 
@@ -76,7 +88,7 @@ class Routine:
             print(f'{i}. {b}')
 
     # returns a list of the routine's blocks
-    def list(self) -> str:
+    def list(self) -> list:
         out = list()
         for block in self.blocks:
             out.append(str(block))

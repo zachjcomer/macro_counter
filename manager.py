@@ -58,19 +58,24 @@ class Manager:
         options = self.list()
         options.append('Create new routine')
 
-        user_input = tools.safe_input_range('Select a routine:', options, int, 1, len(options) + 1) - 1
+        user_input = tools.safe_input_range('\nSelect a routine:', options, int, 1, len(options) + 1)
 
         if len(self.routines) > 0:
             if user_input < len(self.routines):
-                self.get_routine(user_input).prompt()
-            else:
+                self._get_routine(user_input).prompt()
+            elif user_input == len(self.routines):
                 self.create_routine().prompt()
+            else:
+                print('Goodbye!')
+                return
         else:
-            self.create_routine().prompt()
+            if user_input == 0:
+                self.create_routine().prompt()
+            else:
+                print('Goodbye!')
+                return 
 
-    # creates a new routine and returns it for routine builder
-    def run_routine(self, i):    
-        self.routines[i].run()
+        self.prompt()
 
     # create a new routine with a default name
     def create_routine(self):
@@ -78,8 +83,7 @@ class Manager:
         self.routines.append(r)
         return r
 
-    # TODO
-    def get_routine(self, i):
+    def _get_routine(self, i):
         return self.routines[i]
 
     # delete a routine

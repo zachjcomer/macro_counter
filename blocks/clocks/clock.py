@@ -38,5 +38,5 @@ class Clock:
         return self.active
 
     def __str__(self) -> str:
-        return f'clock active: {self.active}'
+        return f'clock_generic'
         
