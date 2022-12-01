@@ -1,5 +1,5 @@
 import tools
-import blocks.block as block
+import blocks.blockBuilder as blockBuilder
 
 """
 Routine
@@ -15,9 +15,36 @@ class Routine:
         self.name = f'Routine {i}'
         self.blocks = list()
 
+    def prompt(self):
+        options = ['Run', 'Edit', 'Delete', 'Go back']
+
+        user_input = tools.safe_input_range(f'\n{self} options:', options, int, 1, 5)
+
+        match user_input:
+            case 1:
+                self.run()
+            case 2:
+                self.editor()
+            case 3:
+                print(f'delete {self} [WIP]')
+            case 4:
+                return # if chosen, returns to manager object, won't run self.prompt() again
+
+        self.prompt()
+
+    def editor(self):
+        options = ['Create new block']
+        options = self.list() + options
+        
+        user_input = tools.safe_input_range(f'\n{self} editor:', options, int, 1, len(options) + 1)
+
+        if user_input == len(options):
+            self.create_block(blockBuilder.new().prompt().build())
+
+
     # executes the routine's blocks in order of list appearance
     def run(self):
-        print(f'Running {self.get_name()}...')
+        print(f'\nRunning {self.get_name()}.')
         for block in self.blocks:
             block.run()
 
@@ -37,7 +64,6 @@ class Routine:
         i = self._select_block(f'Select a block to modify from {self.get_name()}')
         return self.blocks[i]
 
-    # add -> create enforces that an object is being created
     # creates a block object with the given blockConfig and adds it to self.blocks
     def create_block(self, block):
         self.blocks.append(block)
@@ -62,7 +88,7 @@ class Routine:
             print(f'{i}. {b}')
 
     # returns a list of the routine's blocks
-    def list(self) -> str:
+    def list(self) -> list:
         out = list()
         for block in self.blocks:
             out.append(str(block))
@@ -75,21 +101,3 @@ class Routine:
     # returns the routine's name
     def __str__(self) -> str:
         return self.get_name()
-
-    """UNSAFE METHODS BELOW THIS LINE -- USE WITH CAUTION -- DONT PERFORM INPUT VALIDATION OR RANGE CHECKING"""
-    def _get_block(self, i):
-        if i < len(self.blocks):
-            return self.blocks[i]
-
-    def _create_block(self, **blockConfig):
-        self.blocks.append(block.new(**blockConfig))
-        return self
-
-    def _delete_block(self, i):
-        self.blocks.pop(i)
-        return self
-
-    def _move_block(self, i, j):
-        if i < len(self.blocks) and j < len(self.blocks):
-            self.blocks[i], self.blocks[j] = self.blocks[j], self.blocks[i]
-        return self

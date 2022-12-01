@@ -10,24 +10,21 @@ Implementations I can think of rn: lifting -- sets/reps/weights, bodyweight (cal
 
 class Action:
     def __init__(self, **action_config):
-        self.data = list() # LIST OF TUPLES OF FLOATS?
-        self.scheme = tuple() # TUPLE OF STRINGS?
+        self.active = False
 
-    def request_input(self):
-        i = tools.safeInput(f'Enter data for {self.get_name()}:', self.scheme[0], int)
+    def start(self):
+        self.active = True
 
-    """UNSAFE METHODS BELOW THIS LINE -- USE WITH CAUTION -- DONT PERFORM INPUT VALIDATION OR RANGE CHECKING"""
-    def _get_data(self, i) -> tuple:
-        return self.data[i]
+    def end_cycle(self):
+        print('Error: class Action is abstract. Please implement in a subclass.')
+        self.end()
 
-    def _add_data(self, data):
-        self.data.append(data)
+    def end(self):
+        self.active = False
 
-    def _delete_data(self, i):
-        self.data.pop(i)
+    def is_active(self):
+        return self.active
 
-    def _set_scheme(self, vals):
-        self.scheme = tuple(vals)
+    def __str__(self):
+        return 'action_generic'
     
-    def _get_scheme(self) -> list:
-        return list(self.scheme)

@@ -10,37 +10,33 @@ Implementations I can think of rn: stopwatch (count up), timer (count down, cool
 """
 class Clock:
     def __init__(self, **clock_config):
-        self.is_active = False
-
-    # start the timer's recording
-    def start(self):
-        self.is_active = True
-
-    # pause the timer's recording
-    def pause(self):
-        self.is_active = False
-        return
+        self.active = False
 
     # called every tick by block.run(), put any time-updating logic here.
     def tick(self):
-        if self.is_active:
-            return
+        print('Error: class Clock is abstract. Please implement in a subclass.')
+        self.end()
         return
+
+    # start the timer's recording
+    def start(self):
+        self.active = True
+
+    # pause the timer's recording
+    def pause(self):
+        self.active = False
 
     # should be called when the timer successfully reaches its end condition
     def end(self):
-        self.is_active = False
-        return
+        self.active = False
 
     # reset the timer to its initial configuration
     def reset(self):
         return
 
-    def get_active(self) -> bool:
-        return self.is_active
+    def is_active(self) -> bool:
+        return self.active
 
-    def set_active(self, b) -> bool:
-        self.is_active = b
-
-    def __str__(self):
-        return f'clock active: {self.is_active}'
+    def __str__(self) -> str:
+        return f'clock_generic'
+        
