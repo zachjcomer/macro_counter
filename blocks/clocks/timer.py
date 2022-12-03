@@ -23,13 +23,13 @@ class Timer(clock.Clock):
             if (self.elapsed_time >= self.end_time):
                 self.end()
 
-    def start(self):
+    def start(self) -> None:
         self.reset()
         self.active = True
 
-    def reset(self):
+    def reset(self) -> None:
         self.elapsed_time = 0
 
-    def get_inputs():
+    def get_inputs() -> list:
         return Timer.clock_inputs
     

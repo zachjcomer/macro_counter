@@ -10,13 +10,10 @@ BUILDER BlockBuilder
 Handles the creation of a block.
 """
 
-def new():
-    return BlockBuilder()
-
 class BlockBuilder():
-    # creates new block with dummy clock and action
     def __init__(self):
-        self.new_block = block.new()
+        '''creates new block with dummy clock and action'''
+        self.new_block = block.Block()
         self.new_block._set_clock(clock.Clock())
         self.new_block._set_action(action.Action())
 
@@ -33,39 +30,40 @@ class BlockBuilder():
                 return self
         return self.prompt()
 
-    # makes the block a Timer (count down) type
     def set_timer(self, **clock_config):
+        '''adds timer (count down) functionality'''
         self.new_block._set_clock(timer.Timer(**clock_config))
         return self
 
-    # resets the clock to be a dummy clock
     def reset_clock(self):
+        '''resets the clock type to be a dummy clock'''
         self.new_block._set_clock(clock.Clock())
         return self
 
     def set_weight_lifting(self, **action_config):
+        '''adds weight lifting functionality'''
         self.new_block._set_action(weight_lifting.Weight_Lifting(**action_config))
         return self
 
-    # resets the action to be a dummy action
     def reset_action(self):
+        '''resets the action type to be a dummy action'''
         self.new_block._set_action(action.Action())
         return self
 
-    # resets the block to have a dummy clock and action
     def reset(self):
+        '''resets the block to have a dummy clock and action type'''
         self.new_block = block.new()
         self.new_block._set_clock(clock.Clock())
         self.new_block._set_action(action.Action())
         return self
 
-    # give a name to the block
     def name(self, name):
+        '''give a name to the block'''
         self.new_block.set_name(name)
         return self
 
-    # complete creation and return the block
     def build(self):
+        '''complete creation and return the block'''
         return self.new_block
 
     # TODO: I DONT LIKE THIS

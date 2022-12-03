@@ -6,19 +6,18 @@ class Weight_Lifting(action.Action):
     action_inputs = [('sets', int, '+'), ('reps', int, '+'), ('weight', float, '+')]
 
     def __init__(self, **action_config):
-        
         self.sets = action_config.get('sets')
         self.reps = action_config.get('reps')
         self.weight = action_config.get('weight')
 
-    def end_cycle(self):
+    def end_cycle(self) -> None:
         self.sets -= 1
         print(f'Sets left: {self.sets}')
         if self.sets == 0:
             self.end()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.sets}x{self.reps} @ {self.weight}'
         
-    def get_inputs():
+    def get_inputs() -> list:
         return Weight_Lifting.action_inputs

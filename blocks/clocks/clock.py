@@ -12,26 +12,26 @@ class Clock:
     def __init__(self, **clock_config):
         self.active = False
 
-    # called every tick by block.run(), put any time-updating logic here.
-    def tick(self):
+    def tick(self) -> None:
+        '''called every tick by block.run(), put any time-updating logic here.'''
         print('Error: class Clock is abstract. Please implement in a subclass.')
         self.end()
         return
 
-    # start the timer's recording
-    def start(self):
+    def start(self) -> None:
+        '''start the timer's recording'''
         self.active = True
 
-    # pause the timer's recording
-    def pause(self):
+    def pause(self) -> None:
+        '''pause the timer's recording'''
         self.active = False
 
-    # should be called when the timer successfully reaches its end condition
-    def end(self):
+    def end(self) -> None:
+        '''should be called when the timer successfully reaches its end condition'''
         self.active = False
 
-    # reset the timer to its initial configuration
-    def reset(self):
+    def reset(self) -> None:
+        '''reset the timer to its initial configuration'''
         return
 
     def is_active(self) -> bool:

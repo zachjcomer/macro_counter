@@ -50,11 +50,10 @@ def new():
 
 class Manager:
 
-    # self.routines holds all created/saved routines
     def __init__(self):
         self.routines = list()
 
-    def prompt(self):
+    def prompt(self) -> None:
         options = self.list()
         options.append('Create new routine')
 
@@ -77,32 +76,32 @@ class Manager:
 
         self.prompt()
 
-    # create a new routine with a default name
-    def create_routine(self):
+    def create_routine(self) -> routine:
+        '''create a new routine with a default name'''
         r = routine.new(len(self.routines))
         self.routines.append(r)
         return r
 
-    def _get_routine(self, i):
+    def _get_routine(self, i) -> routine:
         return self.routines[i]
 
-    # delete a routine
-    def delete_routine(self, i):
+    def delete_routine(self, i) -> None:
+        '''delete a routine'''
         self.routines.pop(i)    
 
-    # get safe input for selecting a routine
-    def _select_routine(self, prompt):
+    def _select_routine(self, prompt) -> int:
+        '''get safe input for selecting a routine'''
         return tools.safe_input_range(prompt, self.list(), int, 1, len(self.routines) + 1) - 1
 
-    # return a list of the routines
     def list(self) -> str:
+        '''return a list of the routines'''
         out = list()
         for r in self.routines:
             out.append(str(r))
         return out
 
-    # pretty print the routines
     def display(self) -> None:
+        '''pretty print the routines'''
         print('Routines:')
         for i, r in enumerate(self.routines):
             print(f'{i}. {r}')
