@@ -23,9 +23,9 @@ class BlockBuilder():
 
         match user_input:
             case 1:
-                self.set_timer(**tools.safe_input_kwargs('Configure timer:', timer.Timer.clock_inputs))
+                self.set_timer(**tools.safe_input_kwargs('Configure timer:', timer.Timer.get_inputs()))
             case 2:
-                self.set_weight_lifting(**tools.safe_input_kwargs('Configure lift:', weight_lifting.Weight_Lifting.action_inputs))
+                self.set_weight_lifting(**tools.safe_input_kwargs('Configure lift:', weight_lifting.Weight_Lifting.get_inputs()))
             case 3:
                 return self
         return self.prompt()

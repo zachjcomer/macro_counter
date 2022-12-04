@@ -7,6 +7,7 @@ Container for routines.
 """
 
 # TODO: not very singleton-y
+# TODO: terminate option in #prompt()
 
 """
 Example of input prompt:

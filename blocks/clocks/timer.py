@@ -10,7 +10,7 @@ class Timer(clock.Clock):
     Timer clock_config:
     * end_time = lapsed time [s, float] when self.end() is called.
     """
-    clock_inputs = [('end_time', float, '+')]
+    clock_args = [('end_time', float, '+')]
 
     def __init__(self, **clock_config):
         self.elapsed_time = 0
@@ -31,5 +31,5 @@ class Timer(clock.Clock):
         self.elapsed_time = 0
 
     def get_inputs() -> list:
-        return Timer.clock_inputs
+        return Timer.clock_args
     
