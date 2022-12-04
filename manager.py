@@ -57,23 +57,17 @@ class Manager:
     def prompt(self) -> None:
         options = self.list()
         options.append('Create new routine')
+        options.append('Exit')
 
-        user_input = tools.safe_input_range('\nSelect a routine:', options, int, 1, len(options) + 1)
+        user_input = tools.safe_input_range('Select a routine:', options, int, 1, len(options) + 1)
 
-        if len(self.routines) > 0:
-            if user_input < len(self.routines):
-                self._get_routine(user_input).prompt()
-            elif user_input == len(self.routines):
-                self.create_routine().prompt()
-            else:
-                print('Goodbye!')
-                return
+        if user_input <= len(self.routines):
+            self._get_routine(user_input).prompt()
+        elif user_input == len(self.routines) + 1:
+            self.create_routine().prompt()
         else:
-            if user_input == 0:
-                self.create_routine().prompt()
-            else:
-                print('Goodbye!')
-                return 
+            print('Goodbye!')
+            return
 
         self.prompt()
 

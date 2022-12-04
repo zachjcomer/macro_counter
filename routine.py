@@ -17,7 +17,7 @@ class Routine:
     def prompt(self) -> None:
         options = ['Run', 'Edit', 'Delete', 'Go back']
 
-        user_input = tools.safe_input_range(f'\n{self} options:', options, int, 1, 5)
+        user_input = tools.safe_input_range(f'{self} options:', options, int, 1, 5)
 
         match user_input:
             case 1:
@@ -35,7 +35,7 @@ class Routine:
         options = ['Create new block']
         options = self.list() + options
         
-        user_input = tools.safe_input_range(f'\n{self} editor:', options, int, 1, len(options) + 1)
+        user_input = tools.safe_input_range(f'{self} editor:', options, int, 1, len(options) + 1)
 
         if user_input == len(options):
             self.create_block(blockBuilder.BlockBuilder().prompt().build())

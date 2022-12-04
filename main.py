@@ -3,7 +3,6 @@ import manager
 def main():
     # instantiate the manager -- SHOULD BE A SINGLETON
     m = manager.new()
-    m.create_routine()
     # opt = tools.safe_input_range('Pick an option', ['Create a routine.'], int, 0, 1)
     m.prompt()
 
